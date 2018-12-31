@@ -1,0 +1,15 @@
+authors = ["Maurizio Tomasi <ziotom78@gmail.com>"]
+name = "SolidState"
+uuid = "e44d604e-0cbc-11e9-0533-9b005b9e2168"
+version = "0.1.0"
+
+[deps]
+
+[compat]
+julia = "1.0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
