@@ -10,8 +10,13 @@ import Base: *, ≈, show
 """
     struct TransfMatrix
 
-A homogeneous transformation matrix
+A homogeneous transformation matrix. It contains the following fields:
+- `m`
+- `invm`
 
+The multiplication `*` operation is defined on pairs of `TransMatrix`
+objects. You can also use the approximate comparison operator `≈`
+(useful for tests).
 """
 struct TransfMatrix
     "4×4 matrix representing the transformation"
@@ -63,6 +68,12 @@ translate(x, y, z) = TransfMatrix(
                             0 0 0 1])
 )
 
+"""
+    translate(v::Vec3d)
+
+Return a `TransfMatrix` object that represents a translation operator by
+vector `v`.
+"""
 translate(v::Vec3d) = translate(v[1], v[2], v[3])
 
 ################################################################################
@@ -177,12 +188,19 @@ scalez(f) = TransfMatrix(
     scaley(f)
     scalez(f)
 
-Create a `TransfMatrix` object that represents a scaling operation along
+Return a `TransfMatrix` object that represents a scaling operation along
 one of the three axes `x`, `y`, or `z`. Use `scale` if you want a generic
 scaling operation along the three axes.
 """
 scalex, scaley, scalez
 
+"""
+    scale(fx, fy, fz)
+
+Return a `TransfMatrix` object that represents a scaling operation along
+the three axes `x`, `y`, and `z`. Use `scalex`, `scaley`, and `scalez` if
+you are only interested in scaling along *one* of the three axes.
+"""
 scale(fx, fy, fz) = TransfMatrix(
     SMatrix{4, 4, Float64}([fx 0 0 0;
                             0 fy 0 0;
@@ -195,6 +213,8 @@ scale(fx, fy, fz) = TransfMatrix(
 )
 
 ################################################################################
+
+*(tr::TransfMatrix, v::Vec3d) = tr.m[1:3, 1:3] * v
 
 function *(tr::TransfMatrix, r::Ray)
 

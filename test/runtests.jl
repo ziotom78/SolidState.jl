@@ -23,6 +23,10 @@ using Test
 
 @test scalex(2) * scaley(3) * scalez(4) ≈ scale(2, 3, 4)
 
+# Vectors should not vary when translated
+@test translate(4, 5, 6) * vec3d(1, 2, 3) ≈ vec3d(1, 2, 3)
+@test rotatez(π/2) * vec3d(1, 0, 0) ≈ vec3d(0, 1, 0)
+
 # Remember that a ray transforms under the *inverse* transformation, so
 # vector [1, 0, 0] rotates by -π/2 around the y axis
 ray = rotatey(π/2) * Ray(vec3d(0, 0, 0), vec3d(1, 0, 0))
