@@ -1,3 +1,8 @@
+# 0.4.0
+
+- New implementation for `TransfMatrix`, more efficient
+- Better documentation
+
 # 0.3.0
 
 - Re-register the project on GitHub (this has changed the UUID!)
