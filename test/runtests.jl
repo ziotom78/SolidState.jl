@@ -21,13 +21,14 @@ using Test
 @test translate(0.1, 0.2, 0.3) ≈ translate(vec3d(0.1, 0.2, 0.3))
 @test translate(1, 0, 0) * translate(0, 2, 0) * translate(0, 0, 3) ≈ translate(1, 2, 3)
 
-@test scalex(2) * scaley(3) * scalez(4) ≈ SMatrix{4, 4, Float64}([2 0 0 0;
-                                                                  0 3 0 0;
-                                                                  0 0 4 0;
-                                                                  0 0 0 1])
-ray = apply_transform(Ray(vec3d(0, 0, 0), vec3d(1, 0, 0)), rotatey(π/2))
+@test scalex(2) * scaley(3) * scalez(4) ≈ scale(2, 3, 4)
+
+# Remember that a ray transforms under the *inverse* transformation, so
+# vector [1, 0, 0] rotates by -π/2 around the y axis
+ray = rotatey(π/2) * Ray(vec3d(0, 0, 0), vec3d(1, 0, 0))
 @test ray.origin ≈ vec3d(0, 0, 0)
-@test ray_at_dist(ray, 10) ≈ vec3d(0, 0, -10)
+@test ray_at_dist(ray, 10) ≈ vec3d(0, 0, 10)
+@test ray(10) ≈ vec3d(0, 0, 10)
 
 # cameras.jl
 

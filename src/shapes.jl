@@ -1,16 +1,13 @@
-export ShapeProperties, material, transform, inv_transform
+export ShapeProperties, material, transform
 export Shape, normal, getcolor
 export Sphere
 
 mutable struct ShapeProperties
     material::Material
     transf::TransfMatrix
-    invtransf::TransfMatrix
 
-    ShapeProperties(mat) = new(mat,
-                               SMatrix{4, 4}(Matrix{Float64}(I, 4, 4)),
-                               SMatrix{4, 4}(Matrix{Float64}(I, 4, 4)))
-    ShapeProperties(mat, transf) = new(mat, transf, inv(transf))
+    ShapeProperties(mat) = new(mat, TransfMatrix())
+    ShapeProperties(mat, transf) = new(mat, transf)
 end
 
 
@@ -18,7 +15,6 @@ end
 abstract type Shape end
 material(s::Shape) = s.prop.material
 transform(s::Shape) = s.prop.transf
-inv_transform(s::Shape) = s.prop.invtransf
 
 mutable struct Sphere <: Shape
     center::Vec3d

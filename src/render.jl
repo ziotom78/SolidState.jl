@@ -36,7 +36,7 @@ function renderscene!(camera, shapes, image; background=RGB{Float64}(0, 0, 0))
             closest_loc_ray = ray
             firsthit = true
             for i in eachindex(shapes)
-                loc_ray = apply_transform(ray, inv_transform(shapes[i]))
+                loc_ray = transform(shapes[i]) * ray
                 cur_dist = intersect(loc_ray, shapes[i])
                 if cur_dist > 0 && (firsthit || cur_dist < closest_dist)
                     closest_loc_ray = loc_ray
