@@ -1,3 +1,8 @@
+# 0.4.1
+
+- Implement `*` between `TransMatrix` and `Vec3d`
+- Better documentation
+
 # 0.4.0
 
 - New implementation for `TransfMatrix`, more efficient
